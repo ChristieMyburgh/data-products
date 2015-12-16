@@ -14,28 +14,6 @@ c_to_f <- function(from)
   round((from * (9.0/5.0)) + 32, digits = 2)
 }
 
-# degrees celcius vector for plotting.
-celcius <<- c(-45, 100)
-# degrees fahrenheit vector for plotting.
-fahrenheit <<- c(-49, 212)
-# data frame for plotting.
-data <<- data.frame(c = celcius, f = fahrenheit)
-
-# create plot once only, the first time the page is loaded.
-plt <-  ggplot(data , aes(c, f)) +
-  geom_line(color = "blue", size = 1) +
-  theme(axis.text.x = element_text(size = 10),
-        axis.text.y = element_text(size = 10),
-        plot.title = element_text(size = 20),
-        axis.title.x = element_text(size = 15),
-        axis.title.y = element_text(size = 15)) +
-  scale_x_continuous(breaks =
-                       c(-50,-40,-30,-20,-10,0,10,20,30,40,50,60,70,80,90,100)) +
-  scale_y_continuous(breaks = c(-50,-25,0,25,50,75,100,125,150,175,200)) +
-  labs(y = "Fahrenheit") +
-  labs(x = "Celcius") +
-  labs(title = "Conversion Chart")
-
 shinyServer(
   function(input, output)
   {
@@ -99,16 +77,27 @@ shinyServer(
     # "Convert" button.
     output$convertPlot <- renderPlot({
 
+      # degrees celcius vector for plotting.
+      celcius <- c(-45, 100)
+      # degrees fahrenheit vector for plotting.
+      fahrenheit <- c(-49, 212)
+      # data frame for plotting.
+      data <- data.frame(c = celcius, f = fahrenheit)
+
        input$goButton
 
        isolate(
        if (input$type == "C_to_F")
        {
+         #coordinates for converted point.
           xx <<- input$from
           yy <<- c_to_f(input$from)
+
           print(ggplot(data , aes(c, f)) +
                   geom_line(color = "blue", size = 1) +
                   geom_point(aes(x = xx, y = yy), color = "red", size = 5) +
+                  geom_hline(yintercept = yy, color = "red", size = 0.5) +
+                  geom_vline(xintercept = xx, color = "red", size = 0.5) +
                   theme(axis.text.x = element_text(size = 10),
                         axis.text.y = element_text(size = 10),
                         plot.title = element_text(size = 20),
@@ -124,11 +113,15 @@ shinyServer(
                   labs(title = "Conversion Chart"))
        }else
        {
+         # coordinates for converted point
          xx <<- f_to_c(input$from)
          yy <<- input$from
+
          print(ggplot(data, aes(c, f)) +
                  geom_line(color = "blue", size = 1) +
                  geom_point(aes(x = xx, y = yy), color = "red", size = 5) +
+                 geom_hline(yintercept = yy, color = "red", size = 0.5) +
+                 geom_vline(xintercept = xx, color = "red", size = 0.5) +
                  theme(axis.text.x = element_text(size = 10),
                        axis.text.y = element_text(size = 10),
                        plot.title = element_text(size = 20),

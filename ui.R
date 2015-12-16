@@ -3,20 +3,24 @@ library(shinyBS)
 
 shinyUI(
   pageWithSidebar(
-    #Application title
+    # application title
     headerPanel("Temperature Conversion"),
 
     sidebarPanel(
+
+      # control where user selects the type of conversion.
       radioButtons("type","Conversion Type",
                          c("Celcius to Fahrenheit" = "C_to_F",
                            "Fahrenheit to Celcius" = "F_to_C")
                          ),
-
+      # control where user inputs the value to be converted/
       numericInput("from", textOutput("inputHeader"), 0, min = -49, max = 200,
                    step = 1, width = "50%"),
 
+      # button that inititiates the selected conversion.
       actionButton("goButton", "Convert"),
 
+      # bunch of tooltips explaining funcionality of different parts of the UI.
       bsTooltip(id = "from", title = "Enter the value that you want to convert here",
                 placement = "right", trigger = "hover"),
 
@@ -34,14 +38,18 @@ shinyUI(
     ),
     mainPanel(
       h3("Results of conversion"),
+      # dynamic header - change depending on what conversion is performed.
       h4(textOutput("header1")),
+      # show value that user entered.
       verbatimTextOutput("inputValue"),
+      # dynamic header - change depending on what conversion is performed.
       h4(textOutput("header2")),
+      # show converted value.
       verbatimTextOutput("toValue"),
-      h4("Conversion Graph"),
+      # show plot with newly converted value.
       plotOutput("convertPlot"),
-      h5("The red dot is the requested converted point"),
-      h5("The blue line represents the celcius - fahrenheit relationship")
+      h5("The red dot is the newly converted point"),
+      h5("The blue line represents the Celcius - Fahrenheit relationship")
     )
   )
 )
