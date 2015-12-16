@@ -39,7 +39,7 @@ plt <-  ggplot(data , aes(c, f)) +
 shinyServer(
   function(input, output)
   {
-    # Get the selected conversion type from radio buttons..
+    # Get the selected conversion type from radio buttons.
     output$type <- renderPrint({input$type})
 
     # Header dynamically display choice of conversion.
