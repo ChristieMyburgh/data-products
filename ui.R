@@ -21,7 +21,7 @@ shinyUI(
       actionButton("goButton", "Convert"),
 
       # bunch of tooltips explaining funcionality of different parts of the UI.
-      bsTooltip(id = "from", title = "Enter the value that you want to convert here",
+      bsTooltip(id = "from", title = "Select the value that you want to convert here",
                 placement = "right", trigger = "hover"),
 
       bsTooltip(id = "goButton", title = "Click button to convert",
