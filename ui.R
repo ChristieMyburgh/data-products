@@ -22,6 +22,8 @@ shinyUI(
       actionButton("goButton", "Convert"),
 
       # bunch of tooltips explaining funcionality of different parts of the UI.
+      # the tooltips as well as headers  are used to document fucntionality of
+      # the application.
       bsTooltip(id = "from", title = "Select the value that you want to convert here",
                 placement = "right", trigger = "hover"),
 
