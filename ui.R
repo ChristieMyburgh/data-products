@@ -11,7 +11,8 @@ shinyUI(
       # control where user selects the type of conversion.
       radioButtons("type","Conversion Type",
                          c("Celcius to Fahrenheit" = "C_to_F",
-                           "Fahrenheit to Celcius" = "F_to_C")
+                           "Fahrenheit to Celcius" = "F_to_C"),
+                   width = "70%"
                          ),
       # control where user inputs the value to be converted/
       numericInput("from", textOutput("inputHeader"), 0, min = -49, max = 200,
@@ -47,6 +48,7 @@ shinyUI(
       # show converted value.
       verbatimTextOutput("toValue"),
       # show plot with newly converted value.
+      h3("Plot will dynamically update with converted value"),
       plotOutput("convertPlot"),
       h5("The red dot is the newly converted point"),
       h5("The blue line represents the Celcius - Fahrenheit relationship")
